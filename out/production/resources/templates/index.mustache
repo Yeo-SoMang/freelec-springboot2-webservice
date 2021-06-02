@@ -1,0 +1,48 @@
+{{>layout/header}}
+    <h1>스프링 부트로 시작하는 웹 서비스</h1>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
+<!--머스테치는 다른 언어와 같은 if문을 제종하지 않고 True False만 판단함-->
+                {{#userName}}
+                    Logged in as: <span id="user">{{userName}}</span>
+<!-- 스프링에서 기본적으로 제공하는 로그아웃 url-->
+                    <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+                {{/userName}}
+<!--if not과 같음-->
+                {{^userName}}
+<!--스프링에서 기본적으로 제공하는 로그인 url-->
+                    <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">
+                        Google Login
+                    </a>
+                    <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">
+                        Naver Login
+                    </a>
+                {{/userName}}
+            </div>
+        </div>
+        <br>
+        <!--list-->
+        <table class="table table-horizontal table-bordered">
+            <thead class="thead-strong">
+            <tr>
+                <th>No</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ModifiedDate</th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+            {{#posts}}<!--머스테치 문법 posts라는  List를 순회함, Django의 html for문법과 동일-->
+                <tr>
+                    <td>{{id}}</td>
+                    <td><a href="/posts/update/{{id}}">{{title}}</a></td>
+                    <td>{{author}}</td>
+                    <td>{{modifiedDate}}</td>
+                </tr>
+            {{/posts}}
+            </tbody>
+        </table>
+    </div>
+{{>layout/footer}}
